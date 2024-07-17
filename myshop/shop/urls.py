@@ -25,6 +25,7 @@ app_name = 'shop'
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.product_list, name='product_list'),
+    path('', views.product_detail, name='product_detail'),
 ]
 
 if settings.DEBUG:
