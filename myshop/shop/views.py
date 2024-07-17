@@ -1,5 +1,5 @@
 from .models import Category, Product
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, get_object_or_404
 
 
 def product_list(request, category_slug=None):
