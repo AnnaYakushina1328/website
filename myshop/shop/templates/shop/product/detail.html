@@ -1,16 +1,67 @@
 {% extends "shop/base.html" %}
 {% load static %}
 {% block title %}
-{% if category %}{{ category.title }}{% else %}Products{% endif %}
+{% if product.category %}{{ product.category.name }}{% else %}Product Detail{% endif %}
 {% endblock %}
 {% block content %}
+<style>
+    .product_detail {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        background-color: #fff;
+        text-align: center;
+    }
+
+    .product_detail img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 10px;
+        margin-bottom: 20px;
+    }
+
+    .product_detail h1 {
+        font-size: 2em;
+        margin-bottom: 10px;
+    }
+
+    .product_detail h2 a {
+        color: #007bff;
+        text-decoration: none;
+    }
+
+    .product_detail .price {
+        font-size: 1.5em;
+        color: #28a745;
+        margin-bottom: 20px;
+    }
+
+    .product_detail form {
+        margin-top: 20px;
+    }
+
+    .product_detail input[type="submit"] {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .product_detail input[type="submit"]:hover {
+        background-color: #0056b3;
+    }
+</style>
 <div class="product_detail">
-    <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static 'img/no_image.png' %}{% endif %}">
+    <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static 'img/no_image.png' %}{% endif %}" alt="{{ product.name }}">
     <h1>{{ product.name }}</h1>
-    <h2><a href="{{ product.category.get_absolute_url }}">{{ product.category }}</a></h2>
+    <h2><a href="{{ product.category.get_absolute_url }}">{{ product.category.name }}</a></h2>
     <p class="price">${{ product.price }}</p>
     {{ product.description|linebreaks }}
-    <p class="price">${{ product.price }}</p>
     <form action="{% url 'cart:cart_add' product.id %}" method="post">
         {{ cart_product_form }}
         {% csrf_token %}
