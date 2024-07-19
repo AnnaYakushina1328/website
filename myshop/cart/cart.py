@@ -42,7 +42,7 @@ class Cart(object):
         product_id = str(product.id)
         if product_id in self.cart:
             del self.cart[product_id]
-        self.save()
+            self.save()
 
     def __iter__(self):
         """
@@ -63,6 +63,13 @@ class Cart(object):
         Подсчет всех товаров в корзине.
         """
         return sum(item['quantity'] for item in self.cart.values())
+
+    def get_total_price(self):
+        """
+        Подсчет стоимости товаров в корзине.
+        """
+        return sum(Decimal(item['price']) * item['quantity'] for item in
+                   self.cart.values())
 
     def clear(self):
         # удаление корзины из сессии
