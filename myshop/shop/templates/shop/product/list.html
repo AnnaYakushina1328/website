@@ -4,6 +4,57 @@
 {% if category %}{{ category.name }}{% else %}Products{% endif %}
 {% endblock %}
 {% block content %}
+<style>
+    #main {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .product-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+    }
+
+    .product-list .item {
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        padding: 10px;
+        width: calc(33.333% - 80px);
+        box-sizing: border-box;
+        text-align: center;
+        transition: box-shadow 0.3s;
+    }
+
+    .product-list .item img {
+        max-width: 170px;
+        height: 170px;
+        display: block;
+        margin: 0 auto 10px;
+    }
+
+    .product-list .item a {
+        text-decoration: none;
+        color: #333;
+    }
+
+    .product-list .item:hover {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    @media (max-width: 768px) {
+        .product-list .item {
+            width: calc(50% - 20px);
+        }
+    }
+
+    @media (max-width: 480px) {
+        .product-list .item {
+            width: 100%;
+        }
+    }
+</style>
+
 <div id="sidebar">
     <h3>Categories</h3>
     <ul>
