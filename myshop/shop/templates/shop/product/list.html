@@ -76,7 +76,7 @@
             <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static 'img/no_image.png' %}{% endif %}">
         </a>
         <a href="{% url 'shop:product_detail' product.id %}">{{ product.name }}</a><br>
-        ${{ product.price }}
+        {{ product.price }} руб.
     </div>
     {% endfor %}
 </div>

@@ -1,0 +1,188 @@
+{% extends "shop/base.html" %}
+{% block title %}Проверка заказа{% endblock %}
+{% block content %}
+<style>
+     /* Общие стили для всего документа */
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f5f5f5;
+        margin: 0;
+        padding: 20px;
+        color: #333;
+}
+
+    /* Заголовок заказа */
+    .order-title {
+        font-size: 2.5em;
+        margin-bottom: 30px;
+        text-align: center;
+        color: #444;
+}
+
+    /* Контейнер информации о заказе */
+    .order-info {
+        background-color: #ffffff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        margin-bottom: 30px;
+}
+
+    /* Подзаголовок в контейнере заказа */
+    .order-subtitle {
+        font-size: 1.8em;
+        margin-bottom: 20px;
+        color: #555;
+}
+
+    /* Список товаров */
+    .order-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+}
+
+    /* Элемент списка товаров */
+    .order-item {
+        display: flex;
+        justify-content: space-between;
+        padding: 15px 0;
+        border-bottom: 1px solid #ddd;
+        font-size: 1.1em;
+}
+
+    /* Количество товаров */
+    .order-item-quantity {
+        text-align: left;
+        color: #888;
+}
+
+    /* Название товаров */
+    .order-item-name {
+        text-align: center;
+        flex-grow: 2;
+}
+
+    /* Цена товаров */
+    .order-item-price {
+        text-align: right;
+        color: #666;
+        font-weight: bold;
+}
+
+    /* Общая сумма заказа */
+    .order-total {
+        font-size: 1.5em;
+        font-weight: bold;
+        text-align: right;
+        margin-top: 20px;
+        color: #333;
+}
+
+    /* Форма заказа */
+    .order-form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+    /* Кнопка отправки */
+    .submit-button {
+        padding: 12px 25px;
+        background-color: #007bff;
+        border: none;
+        color: white;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 1em;
+        margin-top: 20px;
+        transition: background-color 0.3s ease;
+}
+
+    /* Стиль кнопки при наведении */
+    .submit-button:hover {
+        background-color: #0056b3;
+}
+
+    /* Стили формы */
+    form p {
+        width: 100%;
+}
+
+    form p input[type="text"], form p input[type="email"], form p input[type="password"], form p textarea {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+}
+
+
+
+
+</style>
+<h1>Оформление заказа</h1>
+<div class="order-info">
+    <h3>Ваш заказ</h3>
+    <ul>
+        {% for item in cart %}
+        <li>
+            {{ item.quantity }}x {{ item.product.name }}
+            <span>${{ item.total_price }}</span>
+        </li>
+        {% endfor %}
+    </ul>
+    <p>Всего: ${{ cart.get_total_price }}</p>
+</div>
+<form action="." method="post" class="order-form">
+    <p>
+        <label for="id_first_name">Имя:</label>
+        <input type="text" name="first_name" maxlength="50" required id="id_first_name">
+
+
+    </p>
+
+
+    <p>
+        <label for="id_last_name">Фамилия:</label>
+        <input type="text" name="last_name" maxlength="50" required id="id_last_name">
+
+
+    </p>
+
+
+    <p>
+        <label for="id_email">Электронная почта:</label>
+        <input type="email" name="email" maxlength="254" required id="id_email">
+
+
+    </p>
+
+
+    <p>
+        <label for="id_address">Адрес:</label>
+        <input type="text" name="address" maxlength="250" required id="id_address">
+
+
+    </p>
+
+
+    <p>
+        <label for="id_postal_code">Почтовый индекс:</label>
+        <input type="text" name="postal_code" maxlength="20" required id="id_postal_code">
+
+
+    </p>
+
+
+    <p>
+        <label for="id_city">Город:</label>
+        <input type="text" name="city" maxlength="100" required id="id_city">
+    <p><input type="submit" value="Оформить"></p>
+    {% csrf_token %}
+</form>
+{% endblock %}
